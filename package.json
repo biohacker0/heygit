@@ -1,5 +1,5 @@
 {
-  "name": "GitSwitch-Cli",
+  "name": "@biohacker0/gitswitch-cli",
   "version": "1.0.0",
   "description": "A powerful CLI tool to effortlessly switch between multiple Git profiles",
   "main": "./bin/GitSwitch-Cli.js",
