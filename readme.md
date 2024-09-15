@@ -22,7 +22,11 @@ GitSwitch CLI is a powerful command-line tool designed to simplify the managemen
 Install GitSwitch CLI globally using npm:
 
 ```bash
-npm i @biohacker0/gitswitch-cli
+npm install -g gitswitchcli
+```
+
+```bash
+npm install -g @biohacker0/gitswitch-cli
 ```
 
 ## Usage

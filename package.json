@@ -1,13 +1,14 @@
 {
-  "name": "@biohacker0/gitswitch-cli",
-  "version": "1.0.0",
-  "description": "A powerful CLI tool to effortlessly switch between multiple Git profiles",
+  "name": "gitswitchcli",
+  "version": "1.0.2",
+  "description": "A CLI tool to switch between multiple Git profiles",
   "main": "./bin/GitSwitch-Cli.js",
-  "type": "module",
   "bin": {
     "gitswitch": "./bin/GitSwitch-Cli.js"
   },
+  "type": "module",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./bin/GitSwitch-Cli.js"
   },
   "dependencies": {
