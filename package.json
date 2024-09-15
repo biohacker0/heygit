@@ -1,0 +1,37 @@
+{
+  "name": "GitSwitch-Cli",
+  "version": "1.0.0",
+  "description": "A powerful CLI tool to effortlessly switch between multiple Git profiles",
+  "main": "./bin/GitSwitch-Cli.js",
+  "type": "module",
+  "bin": {
+    "gitswitch": "./bin/GitSwitch-Cli.js"
+  },
+  "scripts": {
+    "start": "node ./bin/GitSwitch-Cli.js"
+  },
+  "dependencies": {
+    "chalk": "^5.2.0",
+    "inquirer": "^9.2.7",
+    "sqlite3": "^5.1.6"
+  },
+  "keywords": [
+    "git",
+    "profile",
+    "switch",
+    "cli",
+    "github",
+    "version control",
+    "developer tool"
+  ],
+  "author": "biohacker0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/biohacker0/GitSwitch-Cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/biohacker0/GitSwitch-Cli/issues"
+  },
+  "homepage": "https://github.com/biohacker0/GitSwitch-Cli#readme"
+}
