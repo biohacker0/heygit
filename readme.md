@@ -7,6 +7,17 @@ GitSwitch CLI is a powerful command-line tool designed to simplify the managemen
 [![npm version](https://img.shields.io/npm/v/gitswitchcli.svg)](https://www.npmjs.com/package/gitswitchcli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+<div align="center">
+
+![GitSwitch Logo](https://raw.githubusercontent.com/biohacker0/GitSwitch-Gui/main/src-tauri/icons/icon.png)
+
+_Effortlessly manage multiple GitHub accounts from your desktop_
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub release](https://img.shields.io/github/release/biohacker0/GitSwitch-Gui.svg)](https://github.com/biohacker0/GitSwitch-Gui/releases/)
+
+</div>
+
 ## Features
 
 - 🔄 Easily switch between multiple Git profiles
