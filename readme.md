@@ -10,10 +10,6 @@ heygit is a command-line tool designed to simplify the management of multiple Gi
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub release](https://img.shields.io/github/release/biohacker0/GitSwitch-Gui.svg)](https://github.com/biohacker0/GitSwitch-Gui/releases/)
 
-</div>
-[![npm version](https://img.shields.io/npm/v/heygit.svg)](https://www.npmjs.com/package/heygit)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-<div align="center">
 
 ![heygit Logo](https://raw.githubusercontent.com/biohacker0/GitSwitch-Gui/main/src-tauri/icons/icon.png)
 
