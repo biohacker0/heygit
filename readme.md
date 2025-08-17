@@ -1,66 +1,62 @@
-# GitSwitch CLI
-
-<!-- ![GitSwitch CLI Logo](https://raw.githubusercontent.com/biohacker0/GitSwitch-Cli/main/assets/logo.png) -->
-
-GitSwitch CLI is a powerful command-line tool designed to simplify the management of multiple Git profiles. Seamlessly switch between different Git accounts, manage SSH keys, and streamline your development workflow across various projects and platforms.
-
+# heygit
+<!-- ![heygit Logo](https://raw.githubusercontent.com/biohacker0/heygit/main/assets/logo.png) -->
+heygit is a command-line tool designed to simplify the management of multiple Git profiles. Seamlessly switch between different Git accounts, manage SSH keys, and streamline your development workflow across various projects and platforms.
 <div align="center">
-
-![GitSwitch Logo](https://raw.githubusercontent.com/biohacker0/GitSwitch-Gui/main/src-tauri/icons/icon.png)
-
-_Effortlessly manage multiple GitHub accounts from your desktop_
-
+![heygit Logo](https://raw.githubusercontent.com/biohacker0/GitSwitch-Gui/main/src-tauri/icons/icon.png)
+*Effortlessly manage multiple GitHub accounts from your desktop*
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub release](https://img.shields.io/github/release/biohacker0/GitSwitch-Gui.svg)](https://github.com/biohacker0/GitSwitch-Gui/releases/)
-
 </div>
-
-[![npm version](https://img.shields.io/npm/v/gitswitchcli.svg)](https://www.npmjs.com/package/gitswitchcli)
+[![npm version](https://img.shields.io/npm/v/heygit.svg)](https://www.npmjs.com/package/heygit)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
 <div align="center">
-
-![GitSwitch Logo](https://raw.githubusercontent.com/biohacker0/GitSwitch-Gui/main/src-tauri/icons/icon.png)
-
-_Effortlessly manage multiple GitHub accounts from your desktop_
-
+![heygit Logo](https://raw.githubusercontent.com/biohacker0/GitSwitch-Gui/main/src-tauri/icons/icon.png)
+*Effortlessly manage multiple GitHub accounts from your desktop*
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub release](https://img.shields.io/github/release/biohacker0/GitSwitch-Gui.svg)](https://github.com/biohacker0/GitSwitch-Gui/releases/)
-
 </div>
 
-## Features
+## What heygit Does
 
-- 🔄 Easily switch between multiple Git profiles
-- 🔑 Automatic SSH key management
-- 📋 List all configured accounts
-- ➕ Add new Git accounts on the fly
-- 🗑️ Remove accounts when no longer needed
-- 🔒 Secure local storage of account information
-- 🖥️ Cross-platform compatibility (Windows, macOS, Linux)
+**Setup Git accounts on new machines**
+Got a new computer and need to set up Git? heygit handles all the Git configuration and SSH key generation. Just add your account, copy the generated key to GitHub, and start coding.
+
+**Manage multiple GitHub accounts** 
+Switch between personal, work, and client GitHub accounts instantly. Each account has separate Git configs and SSH keys.
+
+**Easy credential management**
+Remove accounts, view current settings, or clean up Git configuration when needed.
+
+## All Features
+
+| Feature | Description |
+|---------|-------------|
+| Profile Switching | Switch between multiple Git profiles instantly |
+| SSH Key Management | Automatic generation and management of SSH keys |
+| Account Listing | View all configured accounts with their status |
+| Account Addition | Add new Git accounts on the fly |
+| Account Removal | Remove accounts when no longer needed |
+| Secure Storage | Local storage of account information |
+| Cross-platform | Windows, macOS, Linux compatibility |
+| SSH Key Display | Show SSH keys for current or specific users |
 
 ## Installation
 
-Install GitSwitch CLI globally using npm:
+Install heygit globally using npm:
 
 ```bash
-npm install gitswitchcli
-```
-
-```bash
-npm install -g @biohacker0/gitswitch-cli
+npm install -g heygit
 ```
 
 ## Usage
 
-After installation, you can run GitSwitch CLI by typing `gitswitch` in your terminal:
+After installation, you can run heygit by typing `heygit` in your terminal:
 
 ```bash
-gitswitch
+heygit
 ```
 
 This will launch an interactive menu with the following options:
-
 1. List all accounts
 2. Add a new account
 3. Switch account
@@ -72,12 +68,13 @@ This will launch an interactive menu with the following options:
 
 Follow the on-screen prompts to manage your Git profiles effortlessly.
 
+Follow the on-screen prompts to manage your Git profiles effortlessly.
+
 ## Examples
 
-### Adding a new account
-
+**Adding a new account:**
 ```bash
-$ gitswitch
+$ heygit
 ? Choose an action: Add a new account
 ? Enter your name: John Doe
 ? Enter your email: john@example.com
@@ -86,14 +83,22 @@ Public SSH key:
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG...
 ```
 
-### Switching accounts
-
+**Switching accounts:**
 ```bash
-$ gitswitch
+$ heygit
 ? Choose an action: Switch account
 ? Select an account to switch to: John Doe (john@example.com)
-Switched to account: john@example.com
+Switched to account: name: John Doe | email: (john@example.com)
+SSH keys have been updated in the .ssh directory.
 ```
+
+## Requirements
+
+| Requirement | Notes |
+|-------------|-------|
+| Node.js | Version 14 or higher |
+| Git | For version control operations |
+| SSH | For key generation (usually pre-installed) |
 
 ## Contributing
 
@@ -109,8 +114,8 @@ Created by [biohacker0](https://github.com/biohacker0)
 
 ## Support
 
-If you find GitSwitch CLI useful, consider [buying me a coffee](https://buymeacoffee.com/biohacker0)!
+If you find heygit useful, consider [buying me a coffee](https://buymeacoffee.com/biohacker0)!
 
 ---
 
-GitSwitch CLI - Simplify your Git profile management and boost your productivity!
+heygit - Simplify your Git profile management and boost your productivity!
