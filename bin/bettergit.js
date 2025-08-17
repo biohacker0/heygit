@@ -27,17 +27,17 @@ const THEME = {
 
 // ASCII Art for header
 const ASCII_ART = `
-╭─────────────────────────────────────────────────────────────────╮
-│                                                                 │
-|    _      _         _                   _                 ___   |
-|   | |__  (_)  ___  | |__    __ _   ___ | | __ ___  _ __  / _ \\  |
-|   | '_ \\ | | / _ \\ | '_ \\  / _\` | / __|| |/ // _ \\| '__|| | | | |
-|   | |_) || || (_) || | | || (_| || (__ |   <|  __/| |   | |_| | |
-|   |_.__/ |_| \\___/ |_| |_| \\__,_| \\___||_|\\_\\\\___||_|    \\___/  |
-|                                                                 |   
-|                                                                 │
-│        Built By biohacker0 aka crow Nyaa :3                     │
-╰─────────────────────────────────────────────────────────────────╯
+ _____________________________________________________________________________
+|                                                                             |
+|      ███████╗███╗   ███╗██████╗ ██████╗ ███████╗███████╗███████╗ ██████╗    |
+|      ██╔════╝████╗ ████║██╔══██╗██╔══██╗██╔════╝██╔════╝██╔════╝██╔═══██╗   |
+|      █████╗  ██╔████╔██║██████╔╝██████╔╝█████╗  ███████╗███████╗██║   ██║   |
+|      ██╔══╝  ██║╚██╔╝██║██╔═══╝ ██╔══██╗██╔══╝  ╚════██║╚════██║██║   ██║   |
+|      ███████╗██║ ╚═╝ ██║██║     ██║  ██║███████╗███████║███████║╚██████╔╝   |
+|      ╚══════╝╚═╝     ╚═╝╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝ ╚═════╝  [v1.0]
+|                                                                             |
+|_____________________________________________________________________________|
+
 `;
 
 // Initialize the SQLite database
@@ -120,9 +120,7 @@ function addAccount(name, email) {
     const db = new sqlite3.Database(DB_FILE);
     db.get("SELECT * FROM accounts WHERE email = ?", [email], (err, row) => {
       if (row) {
-        console.log(
-          THEME.accent(`Error: An account with email ${email} already exists.`)
-        );
+        console.log(THEME.accent(`Error: An account with email ${email} already exists.`));
         db.close();
         resolve();
         return;
@@ -133,14 +131,8 @@ function addAccount(name, email) {
       const publicKey = fs.readFileSync(path.join(SSH_DIR, "id_ed25519.pub"));
 
       db.run("UPDATE accounts SET is_active = 0");
-      db.run("INSERT INTO accounts (email, name, is_active) VALUES (?, ?, 1)", [
-        email,
-        name,
-      ]);
-      db.run(
-        "INSERT INTO ssh_keys (email, private_key, public_key) VALUES (?, ?, ?)",
-        [email, privateKey, publicKey]
-      );
+      db.run("INSERT INTO accounts (email, name, is_active) VALUES (?, ?, 1)", [email, name]);
+      db.run("INSERT INTO ssh_keys (email, private_key, public_key) VALUES (?, ?, ?)", [email, privateKey, publicKey]);
       db.close();
 
       setGitCredentials(name, email);
@@ -148,11 +140,7 @@ function addAccount(name, email) {
       console.log(THEME.secondary("Public SSH key:"));
       console.log(THEME.sshKey(publicKey.toString()));
       console.log();
-      console.log(
-        THEME.secondary(
-          "Copy and Paste the above SSH key to your Git account under ssh/gpg keys sections on github under account settings."
-        )
-      );
+      console.log(THEME.secondary("Copy and Paste the above SSH key to your Git account under ssh/gpg keys sections on github under account settings."));
       console.log(THEME.secondary("Git credentials have been set globally."));
       resolve();
     });
@@ -173,45 +161,33 @@ function setGitCredentials(name, email) {
 function removeAccountByEmail(email) {
   return new Promise((resolve) => {
     const db = new sqlite3.Database(DB_FILE);
-    db.get(
-      "SELECT is_active, name FROM accounts WHERE email = ?",
-      [email],
-      (err, account) => {
-        if (!account) {
-          console.log(
-            THEME.accent(`Error: No account found with email ${email}`)
-          );
-          db.close();
-          resolve();
-          return;
-        }
-
-        db.run("DELETE FROM accounts WHERE email = ?", [email]);
-        db.run("DELETE FROM ssh_keys WHERE email = ?", [email]);
-
-        if (account.is_active) {
-          const { email: currentEmail } = getCurrentGitUser();
-          if (currentEmail === email) {
-            unsetGitCredentials();
-            clearSshKeys();
-            console.log(
-              THEME.secondary(`Account removed for ${account.name} (${email})`)
-            );
-            switchAccount(true);
-          } else {
-            console.log(
-              THEME.secondary(`Account removed for ${account.name} (${email})`)
-            );
-          }
-        } else {
-          console.log(
-            THEME.secondary(`Account removed for ${account.name} (${email})`)
-          );
-        }
+    db.get("SELECT is_active, name FROM accounts WHERE email = ?", [email], (err, account) => {
+      if (!account) {
+        console.log(THEME.accent(`Error: No account found with email ${email}`));
         db.close();
         resolve();
+        return;
       }
-    );
+
+      db.run("DELETE FROM accounts WHERE email = ?", [email]);
+      db.run("DELETE FROM ssh_keys WHERE email = ?", [email]);
+
+      if (account.is_active) {
+        const { email: currentEmail } = getCurrentGitUser();
+        if (currentEmail === email) {
+          unsetGitCredentials();
+          clearSshKeys();
+          console.log(THEME.secondary(`Account removed for ${account.name} (${email})`));
+          switchAccount(true);
+        } else {
+          console.log(THEME.secondary(`Account removed for ${account.name} (${email})`));
+        }
+      } else {
+        console.log(THEME.secondary(`Account removed for ${account.name} (${email})`));
+      }
+      db.close();
+      resolve();
+    });
   });
 }
 
@@ -219,41 +195,37 @@ function removeAccountByEmail(email) {
 async function switchAccount(autoSwitch = false) {
   return new Promise((resolve) => {
     const db = new sqlite3.Database(DB_FILE);
-    db.all(
-      "SELECT email, name FROM accounts WHERE is_active = 0",
-      async (err, accounts) => {
-        if (accounts.length === 0) {
-          console.log();
-          console.log(THEME.accent("No other accounts available."));
-          db.close();
-          resolve();
-          return;
-        }
-
-        if (autoSwitch) {
-          const randomAccount =
-            accounts[Math.floor(Math.random() * accounts.length)];
-          await activateAccount(randomAccount.email, randomAccount.name);
-        } else {
-          console.log(THEME.primary("Available accounts:"));
-          const { selectedAccount } = await inquirer.prompt([
-            {
-              type: "list",
-              name: "selectedAccount",
-              message: "Select an account to switch to:",
-              choices: accounts.map((acc) => ({
-                name: `${acc.name} (${acc.email})`,
-                value: acc.email,
-              })),
-            },
-          ]);
-          const account = accounts.find((acc) => acc.email === selectedAccount);
-          await activateAccount(account.email, account.name);
-        }
+    db.all("SELECT email, name FROM accounts WHERE is_active = 0", async (err, accounts) => {
+      if (accounts.length === 0) {
+        console.log();
+        console.log(THEME.accent("No other accounts available."));
         db.close();
         resolve();
+        return;
       }
-    );
+
+      if (autoSwitch) {
+        const randomAccount = accounts[Math.floor(Math.random() * accounts.length)];
+        await activateAccount(randomAccount.email, randomAccount.name);
+      } else {
+        console.log(THEME.primary("Available accounts:"));
+        const { selectedAccount } = await inquirer.prompt([
+          {
+            type: "list",
+            name: "selectedAccount",
+            message: "Select an account to switch to:",
+            choices: accounts.map((acc) => ({
+              name: `${acc.name} (${acc.email})`,
+              value: acc.email,
+            })),
+          },
+        ]);
+        const account = accounts.find((acc) => acc.email === selectedAccount);
+        await activateAccount(account.email, account.name);
+      }
+      db.close();
+      resolve();
+    });
   });
 }
 
@@ -265,34 +237,19 @@ function activateAccount(email, name) {
       db.run("UPDATE accounts SET is_active = 0");
       db.run("UPDATE accounts SET is_active = 1 WHERE email = ?", [email]);
 
-      db.get(
-        "SELECT private_key, public_key FROM ssh_keys WHERE email = ?",
-        [email],
-        (err, row) => {
-          if (row) {
-            clearSshKeys();
-            fs.writeFileSync(path.join(SSH_DIR, "id_ed25519"), row.private_key);
-            fs.writeFileSync(
-              path.join(SSH_DIR, "id_ed25519.pub"),
-              row.public_key
-            );
-            setGitCredentials(name, email);
-            console.log();
-            console.log(
-              THEME.primary(
-                `Switched to account: name: ${name} | email: (${email})`
-              )
-            );
-            console.log(
-              THEME.secondary(
-                "SSH keys have been updated in the .ssh directory."
-              )
-            );
-            console.log();
-          }
-          resolve();
+      db.get("SELECT private_key, public_key FROM ssh_keys WHERE email = ?", [email], (err, row) => {
+        if (row) {
+          clearSshKeys();
+          fs.writeFileSync(path.join(SSH_DIR, "id_ed25519"), row.private_key);
+          fs.writeFileSync(path.join(SSH_DIR, "id_ed25519.pub"), row.public_key);
+          setGitCredentials(name, email);
+          console.log();
+          console.log(THEME.primary(`Switched to account: name: ${name} | email: (${email})`));
+          console.log(THEME.secondary("SSH keys have been updated in the .ssh directory."));
+          console.log();
         }
-      );
+        resolve();
+      });
     });
     db.close();
   });
@@ -330,22 +287,12 @@ async function listAccounts() {
     const db = new sqlite3.Database(DB_FILE);
     db.all("SELECT name, email, is_active FROM accounts", (err, rows) => {
       console.log();
-      console.log(
-        THEME.primary(
-          "Credentials of all accounts in the database with status:"
-        )
-      );
+      console.log(THEME.primary("Credentials of all accounts in the database with status:"));
       if (rows.length === 0) {
         console.log(THEME.accent("No accounts available."));
       } else {
         rows.forEach((row) => {
-          console.log(
-            `user.name : ${row.name} | user.email: ${row.email} - ${
-              row.is_active
-                ? THEME.active("Active")
-                : THEME.inactive("Inactive")
-            }`
-          );
+          console.log(`user.name : ${row.name} | user.email: ${row.email} - ${row.is_active ? THEME.active("Active") : THEME.inactive("Inactive")}`);
 
           const sshKeyPath = path.join(SSH_DIR, `id_ed25519.pub`);
           if (fs.existsSync(sshKeyPath)) {
@@ -356,20 +303,12 @@ async function listAccounts() {
           }
         });
       }
-      console.log(
-        "-------------------------------------------------------------------------"
-      );
+      console.log("-------------------------------------------------------------------------");
       // Show the currently active Git account details
       const { name, email } = getCurrentGitUser();
       if (name && email) {
-        console.log(
-          THEME.primary("\nActive Account Credentials and SSH keys:")
-        );
-        console.log(
-          THEME.active(
-            `Current Git User: user.name : ${name} | user.email : ${email}`
-          )
-        );
+        console.log(THEME.primary("\nActive Account Credentials and SSH keys:"));
+        console.log(THEME.active(`Current Git User: user.name : ${name} | user.email : ${email}`));
         const currentSshKeyPath = path.join(SSH_DIR, "id_ed25519.pub");
         if (fs.existsSync(currentSshKeyPath)) {
           const currentSshKey = fs.readFileSync(currentSshKeyPath, "utf8");
@@ -390,17 +329,13 @@ async function listAccounts() {
 async function showSSHKey(email) {
   const db = new sqlite3.Database(DB_FILE);
   const sshKey = await new Promise((resolve) => {
-    db.get(
-      "SELECT public_key FROM ssh_keys WHERE email = ?",
-      [email],
-      (err, row) => {
-        if (row) {
-          resolve(row.public_key.toString());
-        } else {
-          resolve(null);
-        }
+    db.get("SELECT public_key FROM ssh_keys WHERE email = ?", [email], (err, row) => {
+      if (row) {
+        resolve(row.public_key.toString());
+      } else {
+        resolve(null);
       }
-    );
+    });
   });
   db.close();
 
@@ -460,16 +395,7 @@ function displayMenu() {
           type: "list",
           name: "action",
           message: "Choose an action:",
-          choices: [
-            "List all accounts",
-            "Add a new account",
-            "Switch account",
-            "Remove an account",
-            "Remove all accounts",
-            "Show SSH key of current user",
-            "Show SSH key of specific user",
-            "Exit",
-          ],
+          choices: ["List all accounts", "Add a new account", "Switch account", "Remove an account", "Remove all accounts", "Show SSH key of current user", "Show SSH key of specific user", "Exit"],
         },
       ])
       .then((answers) => {
